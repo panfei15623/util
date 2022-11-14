@@ -32,6 +32,11 @@ function getContainer(option: Options) {
   return head || document.body;
 }
 
+/**
+ * getOrder 设置顺序
+ * @param prepend: boolean | "queue"
+ * @returns 'prependQueue' | 'append' | 'prepend'
+ */
 function getOrder(prepend?: Prepend): AppendType {
   if (prepend === 'queue') {
     return 'prependQueue';
@@ -49,6 +54,12 @@ function findStyles(container: Element) {
   ).filter(node => node.tagName === 'STYLE') as HTMLStyleElement[];
 }
 
+/**
+ * injectCSS 将 CSS 注入 style，默认加到 head 最后 
+ * @param css 
+ * @param option 
+ * @returns 
+ */
 export function injectCSS(css: string, option: Options = {}) {
   if (!canUseDom()) {
     return null;
@@ -121,6 +132,7 @@ function syncRealContainer(container: Element, option: Options) {
 }
 
 export function updateCSS(css: string, key: string, option: Options = {}) {
+  // 获取容器
   const container = getContainer(option);
 
   // Sync real parent
